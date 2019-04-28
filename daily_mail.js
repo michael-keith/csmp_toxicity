@@ -34,8 +34,12 @@ function insert(comment, url) {
 }
 
 (async function() {
-  let id = "6948269"
-  let url = "https://www.dailymail.co.uk/reader-comments/p/asset/readcomments/" + id + "?max=10000&order=desc&rcCache=shout"
+  let id = "6951599"
+  let offset = 0
+  let next_page = true
+
+  while(next_page) {
+  let url = "https://www.dailymail.co.uk/reader-comments/p/asset/readcomments/" + id + "?max=1000&order=desc&rcCache=shout&offset=" + offset
   let json = await getJSON(url)
   let comments = getComments(json)
 
@@ -43,5 +47,8 @@ function insert(comment, url) {
     await insert(comment, url)
     console.log("ADDED")
   })
+  if(!json.payload.page) {next_page = false}
+  else {offset += 1000}
+  }
 
 }())

@@ -15,7 +15,7 @@ const pool  = mysql.createPool({
 pool.query = util.promisify(pool.query)
 
 const threshold = 0.9;
-const labelsToInclude = ['identity_attack', 'insult', 'obscene', 'severe_toxicity', 'sexual_explicit', 'threat', 'toxicity'];
+const labelsToInclude = ['identity_attack', 'insult', 'obscene', 'severe_toxicity', 'sexual_explicit', 'threat', 'toxicity']
 
 async function getComments() {
   return await pool.query("SELECT id, comment FROM comments")
